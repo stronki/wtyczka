@@ -1,0 +1,98 @@
+////////////////////////////manifest.json
+
+{
+"manifest_version": 2,
+"name": "cos",
+"description": "cos",
+"version": "1.0",
+"icons": {"128": "128.png"},
+"browser_action": {
+	"default_icon": "icon.png",
+	"default_popup": "popup.html"
+},
+  "background": {
+    "service_worker": "script.js"
+  },
+"permissions": ["activeTab","storage"]
+}
+
+
+////////////////////////////////popup.html
+
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>cos</title>
+<meta name="description" content="coś">
+<style>
+html {font-family: sans-serif;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;}
+body {margin: 0px;width:500px;}
+fieldset {border:1px solid silver;margin:0;padding: 0.42em 0.625em 0.75em;background-color:#DADADA;font-size:137%;margin-top:5px;}
+button,input,select,textarea {font-family: inherit;font-size: 100%;margin: 0;}
+h1, h2, h3, h4, h5, h6, p, ul, ol {margin: 0;}
+h1 {float:left;}
+article {padding:0em 4em;}
+p {margin-bottom: 18px;}
+input[type="number"] {width:86px;}
+.block {margin: 0 auto;padding: 0em 0em;}
+.red {color:red;} .blue {color:blue;}
+.center {text-align:center;}
+</style>
+</head>
+<body>
+
+<form name=form1 method="post" id="form1">
+<fieldset>
+  <div>
+  <input type="number" pattern="[0-9]*" inputmode="decimal" name=a placeholder="%" oninput="perc1()">% z <input type="number" pattern="[0-9]*" inputmode="decimal" name=b placeholder="a" oninput="perc1()"> to <input maxLength=40 size=7 name=total1>
+  </div>
+</fieldset>
+</form>
+<form name=form2 method="post" id="form2"> 
+<fieldset>
+  <div>
+  <input type="number" pattern="[0-9]*" inputmode="decimal" name=c placeholder="a" oninput="perc2()"> dla <input type="number" pattern="[0-9]*" inputmode="decimal" name=d placeholder="b" oninput="perc2()"> to <input size=7 name=total2>%
+  </div>
+</fieldset>
+</form>
+<form name=form4 method="post" id="form4"> 
+<fieldset>
+  <div>
+  <input type="number" pattern="[0-9]*" inputmode="decimal" name=g placeholder="a" oninput="perc4()"><span class="red"> + </span><input type="number" pattern="[0-9]*" inputmode="decimal" name=h placeholder="%" oninput="perc4()">% to <input size=7 name=total4>
+  </div>
+</fieldset>
+</form>
+<form name=form5 method="post" id="form5"> 
+<fieldset>
+  <div>
+  <input type="number" pattern="[0-9]*" inputmode="decimal" name=i placeholder="a" oninput="perc5()"><span class="blue"> − </span><input type="number" pattern="[0-9]*" inputmode="decimal" name=j placeholder="%" oninput="perc5()">% to <input size=7 name=total5>
+  </div>
+</fieldset>    
+</form>
+<form name=form3 method="post" id="form3"> 
+<fieldset>
+  <div>
+  <input type="number" pattern="[0-9]*" inputmode="decimal" name=e placeholder="a" oninput="perc3()"> do <input type="number" pattern="[0-9]*" inputmode="decimal" name=f placeholder="b" oninput="perc3()"> wzrosło/zmalało o <input size=7 name=total3>%
+  </div>
+</fieldset>
+</form>
+
+<script src="script.js"></script>
+
+</body></html>
+
+
+
+
+
+/////////////////////////////////////////////////////script.js
+
+
+function perc1() {a = document.form1.a.value.replace(',', '.')/100;b = a*document.form1.b.value.replace(',', '.');document.form1.total1.value = b}
+function perc2() {a = document.form2.c.value.replace(',', '.');b = document.form2.d.value.replace(',', '.');c = a/b;d = c*100;document.form2.total2.value = d}
+function perc3() {a = document.form3.e.value.replace(',', '.');b = document.form3.f.value.replace(',', '.');c = (b - a) / a;d = c*100;document.form3.total3.value = d}
+function perc4() {a = document.form4.g.value.replace(',', '.');b = document.form4.h.value.replace(',', '.');c = a - - (b /100 * a);document.form4.total4.value = c}
+function perc5() {a = document.form5.i.value.replace(',', '.');b = document.form5.j.value.replace(',', '.');c = a - (b /100 * a);document.form5.total5.value = c}
